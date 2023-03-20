@@ -1,0 +1,28 @@
+{
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --ignore-path ./.gitignore --write ."
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@hackclub/icons": "^0.0.12",
+    "@hackclub/meta": "^1.1.32",
+    "@hackclub/theme": "^0.3.3",
+    "@mdx-js/loader": "^2.3.0",
+    "airtable-plus": "^1.0.4",
+    "next": "^13.1.6",
+    "next-mdx-remote": "^4.3.0",
+    "nookies": "^2.5.2",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-canvas-confetti": "^1.3.0",
+    "react-dom": "^18.2.0",
+    "swr": "^2.0.3",
+    "theme-ui": "^0.15.5"
+  }
+}

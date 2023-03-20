@@ -1,11 +1,10 @@
-import { Box, Text } from 'theme-ui'
+import { Box, Text, Link } from 'theme-ui'
 import { returnLocalizedMessage } from '@/lib/helpers'
 import Icon from '@hackclub/icons'
-import { destroyCookie } from 'nookies'
 
 export default function OpenSourceCard({ router }) {
   return (
-    <Box
+    <Link
       sx={{
         display: ['none', 'flex'],
         position: 'fixed',
@@ -15,14 +14,12 @@ export default function OpenSourceCard({ router }) {
         placeItems: 'center',
         background: '#00000002',
         px: 2,
-        borderRadius: '15px'
+        borderRadius: '15px',
+        textDecoration: 'none',
+        color: 'black'
       }}
-      onClick={async () => {
-        await destroyCookie(null, 'authToken', {
-          path: '/'
-        })
-        router.push('/', '/', { scroll: false })
-      }}
+      href="https://github.com/hackclub/turnover"
+      target="_blank"
     >
       <Text
         sx={{
@@ -50,6 +47,6 @@ export default function OpenSourceCard({ router }) {
           opacity: 0.8
         }}
       />
-    </Box>
+    </Link>
   )
 }

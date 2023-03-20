@@ -308,6 +308,10 @@ export default function TurnoverReview({
             sx={{
               alignItems: 'center',
               cursor: 'pointer',
+              color: [
+                leaderRecord.fields['Completed'] == 1 ? '#33d6a6' : '#ff8c37',
+                'accent'
+              ],
               '> svg': { display: ['none', 'inline'] }
             }}
           >
@@ -319,10 +323,6 @@ export default function TurnoverReview({
             <Heading
               sx={{
                 flexGrow: 1,
-                color: [
-                  leaderRecord.fields['Completed'] == 1 ? '#33d6a6' : '#ff8c37',
-                  'blue'
-                ],
                 ml: [0, 2]
               }}
               as="h1"
@@ -340,6 +340,10 @@ export default function TurnoverReview({
           <Flex
             sx={{
               alignItems: 'center',
+              color: [
+                turnoverRecord.fields['Completed'] == 1 ? '#33d6a6' : '#ff8c37',
+                'accent'
+              ],
               cursor: 'pointer',
               '> svg': { display: ['none', 'inline'] }
             }}
@@ -352,12 +356,6 @@ export default function TurnoverReview({
             <Heading
               sx={{
                 flexGrow: 1,
-                color: [
-                  turnoverRecord.fields['Completed'] == 1
-                    ? '#33d6a6'
-                    : '#ff8c37',
-                  'blue'
-                ],
                 ml: [0, 2]
               }}
               as="h1"

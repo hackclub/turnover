@@ -96,8 +96,8 @@ export default function Timeline({
           width: `${
             leaderRecord.fields['Email'] !=
             turnoverRecord.fields['Leaders Emails'][0]
-              ? '170px'
-              : '115px'
+              ? '160px'
+              : '105px'
           }`,
           backgroundColor: '#f0f0f0',
           borderRadius: '10px',
@@ -151,7 +151,7 @@ export default function Timeline({
                     key={idx}
                     sx={{
                       display: ['none', 'inline-block'],
-                      mb: '1rem'
+                      my: '1rem'
                     }}
                   >
                     <Box
@@ -169,7 +169,9 @@ export default function Timeline({
                         marginTop: '5px'
                       }}
                     >
-                      {item.progress == null ? null : (
+                      {item.progress == null ? (
+                        <Box sx={{ mt: '5px' }} />
+                      ) : (
                         <ProgressBar item={item} />
                       )}
                       <div>

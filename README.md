@@ -1,29 +1,22 @@
-## TODO
-
-- [ ] `invite.js`
-- [ ] Everything inside `[application]/[leader]`
-
-* Club turnover workflow
-  * Something like turnover.hackclub.com
-  * Every year, probably around March (?) we have an Airtable automation that looks through all the club leaders and their birthdays to determine if they're graduating. Email is sent out to those who are planning to graduate (cc'ing Holly ofc), just being like, "Hey! It looks like you could potentially be graduating this year. Is there anyone you'd like to turn your club over to?" and give them an application link to the transfer application
-  * If they are planning to turnover, they can head to the application link and invite the new prospective leaders. This will send out an email to them
-  * The new prospective leaders can then fill out the form, similar to how the application one worked
-  * Once all the leaders that the old leader (soon to be alum!) has filled out, their info will go directly in Airtable, probably onto the Application Tracker table under a new status (something like "onboarding")
-
-Meeting:
-
-* A better application viewer (personally)
-* Update the toolbox per Kara's comments
-* Update the apply form with the popup
-* Work on transfer
-  * Which ones are in active use?
-  * Changes to make to Airtable
-    * Add status change to Airtable in `Application Tracker` and `Application Database` - "turnover" (perhaps new view in `Application Database` as well?)
-    * After turnover gets approved, we need to update Active Emails based on what I've seen 
-
 # Hack Club Transfer
 
-Apply to [Hack Club](https://hackclub.com), built with [React](https://reactjs.org) and [Next.js](https://nextjs.org).
+Transfer flow for [Hack Club](https://hackclub.com), built with [React](https://reactjs.org) and [Next.js](https://nextjs.org).
+
+## The turnover flow
+
+1. In March, we have an automation that runs, sending out an email to all potential alumni - that is, anybody who is planning to graduate that year, per the information they entered when they filled out the form at [apply.hackclub.com](https://apply.hackclub.com). 
+2. This email contains a login link to [turnover.hackclub.com](https://turnover.hackclub.com). If the alumni plans on turning over their club, this is the form to fill out! All you need to do is:
+   1. Talk to your club/club leaders about who would be a great fit.
+   2. Send an email invite to them using the application at the login link!
+3. Once you've invited the future leaders, you're all set!
+
+For future leaders: 
+
+1. You'll receive an email with a login link to [turnover.hackclub.com](https://turnover.hackclub.com).
+2. Fill out the information in the application at the login link! You'll also get a chance to invite fellow coleaders. This is basically just like [apply.hackclub.com](https://apply.hackclub.com), but for getting a club turned over.
+3. You and your fellow team leaders will receive an email to set up a meeting to discuss how Hack Club can help you run a successful, well, Hack Club!
+
+That's all!
 
 ## Setup
 

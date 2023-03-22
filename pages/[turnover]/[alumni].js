@@ -228,7 +228,7 @@ export default function Invite({
                 }}
                 onClick={() =>
                   deleteLeader(
-                    turnoverRecord.fields['Prospective Leaders'][idx]
+                    turnoverRecord.fields['Prospective Leaders'][idx + 1]
                   )
                 }
               >

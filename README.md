@@ -38,3 +38,14 @@ yarn && yarn run dev
 ## Contributing
 
 ### How do I add a language?
+
+Fork this repo, go into the `translations` repo, and add a new file `<locale>.js`. Follow the same pattern as `en-US.js`, like so:
+
+```javascript
+export const messageObject = {
+   SOME_TERM: "<Translation>",
+   ...
+}
+```
+
+Once you're done, make sure you open up a pull request!

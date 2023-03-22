@@ -3,7 +3,8 @@ import {
   loginsAirtable,
   trackerAirtable,
   applicationAirtable,
-  prospectiveLeadersAirtable
+  prospectiveLeadersAirtable,
+  clubsAirtable
 } from '../../lib/airtable'
 import nookies from 'nookies'
 
@@ -14,26 +15,18 @@ export default async function handler(req, res) {
     if (!tokenRecord.fields['Path'][0].includes(req.query.id))
       return res.redirect('/')
     const turnoverRecord = await turnoverAirtable.find('rec' + req.query.id)
-
-    // Move Application from old to new "president", update manual fields (President)
-    const alumni = await prospectiveLeadersAirtable.find(
-      turnoverRecord.fields['Prospective Leaders'][0]
-    )
-    const applicationId = 'recLaxZ1uyjM6P9DB' //alumni.fields.Application[0]
+    // Move Application from old to new "president", update manual fields
+    const alumni = (
+      await prospectiveLeadersAirtable.read({
+        filterByFormula: `{Email} = "${turnoverRecord.fields['Alumni']}"`,
+        maxRecords: 1
+      })
+    )[0]
+    const applicationId = alumni.fields['Application'][0]
+    console.log(alumni.fields['Application'])
     const application = await applicationAirtable.find(applicationId)
+    console.log(application)
     const applicationVenue = application.fields['School Name']
-    /*
-    await prospectiveLeadersAirtable.update(alumni.id, {
-      Application: []
-    })
-
-    await prospectiveLeadersAirtable.update(
-      turnoverRecord.fields['Prospective Leaders'][1],
-      {
-        Application: [applicationId]
-      }
-    )
-    */
 
     // Update Application Tracker
     await trackerAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
@@ -48,7 +41,15 @@ export default async function handler(req, res) {
       'Turnover Database': turnoverRecord.id
     })
 
-    // TODO: Update Clubs Dashboard
+    // Update Clubs Dashboard
+    await clubsAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
+      Venue: turnoverRecord.fields.Venue,
+      'Current Leaders': turnoverRecord.fields['Full Name'],
+      'Leader Address': turnoverRecord.fields['Leader Address'],
+      "Current Leaders' Emails": turnoverRecord.fields['Leaders Emails'],
+      Location: turnoverRecord.fields['Location'],
+      'Leader Phone': turnoverRecord.fields['Leader Phone']
+    })
 
     return res.status(200).json({ success: true, id: application.id })
   } catch (error) {

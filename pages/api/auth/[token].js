@@ -25,7 +25,6 @@ export default async function handler(req, res) {
         filterByFormula: `{Alumni} = "${tokenRecord.fields['Email']}"`,
         maxRecords: 1
       })
-      console.log(turnover.length)
       if (turnover.length > 0)
         return res.redirect(
           `/${tokenRecord.fields['Locale with a slash'] || ''}${

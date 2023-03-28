@@ -28,27 +28,37 @@ export default async function handler(req, res) {
     console.log(application)
     const applicationVenue = application.fields['School Name']
 
+    // Update Turnover Database
+    await turnoverAirtable.updateWhere(
+      `{Turnover ID} = ${'rec' + req.query.id}`,
+      {
+        Submitted: true
+      }
+    )
+
     // Update Application Tracker
     await trackerAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
-      Venue: turnoverRecord.fields.Venue,
-      'Leader Address': turnoverRecord.fields['Leader Address'][0],
-      'Leader(s)': turnoverRecord.fields['Leaders'],
+      Venue: turnoverRecord.fields['School Name'],
+      'Leader Address': turnoverRecord.fields['Leader Address'],
+      'Leader(s)': turnoverRecord.fields['Full Name'],
       Status: 'turnover',
       "Leaders' Emails": turnoverRecord.fields['Leaders Emails'].join(','),
-      Location: turnoverRecord.fields['Location'],
-      'Leader Phone': turnoverRecord.fields['Leader Phone'][0],
+      Location: turnoverRecord.fields['School Address'],
+      'Leader Phone': turnoverRecord.fields['Leader Phone'],
       Applied: turnoverRecord.fields['Turnover Date'],
-      'Turnover Database': turnoverRecord.id
+      'Turnover Database': turnoverRecord.id,
+      Notes: 'Leader applied for turnover'
     })
 
     // Update Clubs Dashboard
     await clubsAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
-      Venue: turnoverRecord.fields.Venue,
-      'Current Leaders': turnoverRecord.fields['Full Name'],
-      'Leader Address': turnoverRecord.fields['Leader Address'],
-      "Current Leaders' Emails": turnoverRecord.fields['Leaders Emails'],
-      Location: turnoverRecord.fields['Location'],
-      'Leader Phone': turnoverRecord.fields['Leader Phone']
+      Venue: turnoverRecord.fields['School Name'],
+      'Current Leader(s)': turnoverRecord.fields['Full Name'].join(','),
+      'Leader Address': turnoverRecord.fields['Leader Address'].join(','),
+      "Current Leaders' Emails":
+        turnoverRecord.fields['Leaders Emails'].join(','),
+      Location: turnoverRecord.fields['School Address'],
+      'Leader Phone': turnoverRecord.fields['Leader Phone'].join(',')
     })
 
     return res.status(200).json({ success: true, id: application.id })

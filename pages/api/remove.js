@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const cookies = nookies.get({ req })
   try {
     const tokenRecord = await loginsAirtable.find('rec' + cookies.authToken)
-    if (!tokenRecord.fields['Path'][0].includes(req.query.id)) {
+    if (!tokenRecord.fields['Path'][0].split('/')[0].includes(req.query.id)) {
       res.redirect('/')
       return
     }

@@ -518,7 +518,7 @@ export async function getServerSideProps({ res, req, params }) {
         'rec' + params.turnover
       )
       const trackerRecord = await trackerAirtable.read({
-        filterByFormula: `{App ID} = "rec${params.turnover}"`,
+        filterByFormula: `{Venue} = "${turnoverRecord.fields['School Name']}"`,
         maxRecords: 1
       })
       if (leaderRecord.fields['Accepted Tokens'].includes(cookies.authToken)) {

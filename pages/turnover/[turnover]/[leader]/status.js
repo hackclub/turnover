@@ -25,7 +25,7 @@ export default function TurnoverOnboarding({
   const turnoverStatus = trackerRecord[0]?.fields.Status
   useEffect(() => {
     {
-      turnoverStatus === 'applied'
+      turnoverStatus === 'applied' || turnoverStatus === 'turnover'
         ? (setTurnoverMessage(
             `${returnLocalizedMessage(router.locale, 'IS_BEING_REVIEWED')}`
           ),
@@ -62,7 +62,7 @@ export default function TurnoverOnboarding({
       turnoverRecord.fields['Submitted'] === undefined ||
       turnoverRecord.fields['Submitted'] === null
     ) {
-      if (turnoverRecord.fields['All Complete (incl Leaders)'] === 1) {
+      if (turnoverRecord.fields['Leaders Complete?'] === 1) {
         setTurnoverMessage(
           returnLocalizedMessage(router.locale, 'IS_INCOMPLETE')
         )
@@ -114,7 +114,7 @@ export default function TurnoverOnboarding({
           </Text>
         </Heading>
         <Divider sx={{ color: 'slate', my: [2, 3] }} />
-        {turnoverStatus === 'applied' ? (
+        {turnoverStatus === 'applied' || turnoverStatus === 'turnover' ? (
           <>
             <Box sx={{ fontSize: [1, 2], mb: '30px', pt: '1rem' }}>
               <Text>
@@ -449,7 +449,7 @@ export async function getServerSideProps({ res, req, params }) {
         'rec' + params.turnover
       )
       const trackerRecord = await trackerAirtable.read({
-        filterByFormula: `{App ID} = "rec${params.turnover}"`,
+        filterByFormula: `{Venue} = "${turnoverRecord.fields['School Name']}"`,
         maxRecords: 1
       })
       if (leaderRecord.fields['Accepted Tokens'].includes(cookies.authToken)) {

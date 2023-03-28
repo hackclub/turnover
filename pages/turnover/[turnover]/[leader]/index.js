@@ -37,7 +37,7 @@ export default function ApplicationIndex({
     if (validateEmail(emailToInvite)) {
       const loginAPICall = await fetch(
         `/api/invite?email=${encodeURIComponent(emailToInvite)}&id=${
-          params.application
+          params.turnover
         }&locale=${router.locale}`
       ).then(r => r.json())
       if (loginAPICall.success) {
@@ -67,7 +67,7 @@ export default function ApplicationIndex({
   }
   async function deleteLeader(leaderID) {
     const deleteLeaderCall = await fetch(
-      `/api/remove?id=${params.application}&leaderID=${leaderID}`
+      `/api/remove?id=${params.turnover}&leaderID=${leaderID}`
     ).then(r => r.json())
     if (deleteLeaderCall.success) {
       setInviteMessage(`✅ ${returnLocalizedMessage(router.locale, 'REMOVED')}`)
@@ -187,7 +187,7 @@ export default function ApplicationIndex({
                   }}
                   onClick={() =>
                     deleteLeader(
-                      applicationsRecord.fields['Prospective Leaders'][idx]
+                      turnoverRecord.fields['Prospective Leaders'][idx + 1]
                     )
                   }
                 >
@@ -230,7 +230,7 @@ export default function ApplicationIndex({
               <Icon
                 glyph={
                   warning &&
-                  applicationsRecord.fields['Prospective Leaders'][idx] ===
+                  turnoverRecord.fields['Prospective Leaders'][idx] ===
                     inviteMessage[0]
                     ? 'menu'
                     : 'member-remove'
@@ -251,7 +251,9 @@ export default function ApplicationIndex({
                 display: ['block', 'none']
               }}
               onClick={() =>
-                deleteLeader(turnoverRecord.fields['Prospective Leaders'][idx])
+                deleteLeader(
+                  turnoverRecord.fields['Prospective Leaders'][idx + 1]
+                )
               }
             >
               Remove Leader
@@ -442,7 +444,7 @@ export async function getServerSideProps({ res, req, params }) {
         'rec' + params.turnover
       )
       const trackerRecord = await trackerAirtable.read({
-        filterByFormula: `{App ID} = "rec${params.turnover}"`,
+        filterByFormula: `{Venue} = "${turnoverRecord.fields['School Name']}"`,
         maxRecords: 1
       })
       if (leaderRecord.fields['Accepted Tokens'].includes(cookies.authToken)) {

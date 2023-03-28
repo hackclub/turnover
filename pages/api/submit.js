@@ -23,28 +23,23 @@ export default async function handler(req, res) {
       })
     )[0]
     const applicationId = alumni.fields['Application'][0]
-    console.log(alumni.fields['Application'])
     const application = await applicationAirtable.find(applicationId)
-    console.log(application)
     const applicationVenue = application.fields['School Name']
 
     // Update Turnover Database
-    await turnoverAirtable.updateWhere(
-      `{Turnover ID} = ${'rec' + req.query.id}`,
-      {
-        Submitted: true
-      }
-    )
+    await turnoverAirtable.update('rec' + req.query.id, {
+      Submitted: true
+    })
 
     // Update Application Tracker
     await trackerAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
       Venue: turnoverRecord.fields['School Name'],
-      'Leader Address': turnoverRecord.fields['Leader Address'],
-      'Leader(s)': turnoverRecord.fields['Full Name'],
+      'Leader Address': turnoverRecord.fields['Leader Address'].join(','),
+      'Leader(s)': turnoverRecord.fields['Full Name'].join(','),
       Status: 'turnover',
       "Leaders' Emails": turnoverRecord.fields['Leaders Emails'].join(','),
       Location: turnoverRecord.fields['School Address'],
-      'Leader Phone': turnoverRecord.fields['Leader Phone'],
+      'Leader Phone': turnoverRecord.fields['Leader Phone'].join(','),
       Applied: turnoverRecord.fields['Turnover Date'],
       'Turnover Database': turnoverRecord.id,
       Notes: 'Leader applied for turnover'

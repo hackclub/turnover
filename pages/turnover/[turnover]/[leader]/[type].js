@@ -304,15 +304,14 @@ export default function TurnoverClub({
                             onChange={e => {
                               let newData = {}
                               newData['President'] = `${
-                                data['President']
+                                turnoverRecord.fields['Leaders Emails'].length >
+                                1
                                   ? data['President']
-                                  : turnoverRecord.fields['Leaders Emails'][0]
+                                  : applicationsRecord.fields[
+                                      'Leaders Emails'
+                                    ][0]
                               }`
-                              newData[item.key] = `${
-                                item.key === 'President'
-                                  ? newData['President']
-                                  : e.target.value
-                              }`
+                              newData[item.key] = e.target.value
                               setData({ ...data, ...newData })
                               setSaved(false)
                             }}

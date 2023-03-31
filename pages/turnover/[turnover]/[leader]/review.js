@@ -44,8 +44,31 @@ export default function TurnoverReview({
         `/api/invite?email=${encodeURIComponent(emailToInvite)}&id=${
           params.turnover
         }&locale=${router.locale}`
+      ).then(r => r.json())
+      if (loginAPICall.success) {
+        setInviteMessage([
+          turnoverRecord.fields['Prospective Leaders'][
+            turnoverRecord.fields['Prospective Leaders'].length + 1
+          ],
+          `✅ ${returnLocalizedMessage(router.locale, 'INVITED')}`
+        ])
+        setEmailToInvite('')
+        setErrorMessage(null)
+        router.replace(router.asPath, null, { scroll: false })
+      } else {
+        console.error(loginAPICall)
+        setInviteMessage([
+          turnoverRecord.fields['Prospective Leaders'][
+            turnoverRecord.fields['Prospective Leaders'].length + 1
+          ],
+          `✅ ${returnLocalizedMessage(router.locale, 'INVITED')}`
+        ])
+        setErrorMessage(`❌ ${returnLocalizedMessage(router.locale, 'ERROR')}`)
+      }
+    } else
+      setErrorMessage(
+        `❌ ${returnLocalizedMessage(router.locale, 'INVALID_EMAIL_ADDRESS')}`
       )
-    }
   }
 
   async function deleteLeader(leaderID) {

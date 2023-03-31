@@ -304,8 +304,7 @@ export default function TurnoverClub({
                             onChange={e => {
                               let newData = {}
                               newData['President'] = `${
-                                turnoverRecord.fields['Leaders Emails'].length >
-                                1
+                                data['President']
                                   ? data['President']
                                   : turnoverRecord.fields['Leaders Emails'][0]
                               }`

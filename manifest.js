@@ -1,9 +1,4 @@
 export default {
-  alum: [
-    {
-      header: ''
-    }
-  ],
   clubs: [
     {
       header: 'Leaders',

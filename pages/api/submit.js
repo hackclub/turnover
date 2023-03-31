@@ -46,15 +46,8 @@ export default async function handler(req, res) {
     })
 
     // Update Clubs Dashboard
-    await clubsAirtable.updateWhere(`{Venue} = "${applicationVenue}"`, {
-      Venue: turnoverRecord.fields['School Name'],
-      'Current Leader(s)': turnoverRecord.fields['Full Name'].join(','),
-      'Leader Address': turnoverRecord.fields['Leader Address'].join(','),
-      "Current Leaders' Emails":
-        turnoverRecord.fields['Leaders Emails'].join(','),
-      Location: turnoverRecord.fields['School Address'],
-      'Leader Phone': turnoverRecord.fields['Leader Phone'].join(',')
-    })
+    // Note: Actually, this involves removing the old venue from the club dashboard
+    await clubsAirtable.deleteWhere(`{Venue} = "${applicationVenue}"`)
 
     return res.status(200).json({ success: true, id: application.id })
   } catch (error) {

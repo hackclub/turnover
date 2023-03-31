@@ -4,6 +4,7 @@ import nookies from 'nookies'
 export default async function handler(req, res) {
   try {
     const tokenRecord = await loginsAirtable.find('rec' + req.query.token)
+    console.log(tokenRecord)
     if (
       !tokenRecord ||
       !tokenRecord.fields['Path'] ||

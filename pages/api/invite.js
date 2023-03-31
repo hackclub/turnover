@@ -17,10 +17,12 @@ export default async function handler(req, res) {
     if (prospectiveLeadersRecord.length) {
       // Check if prospective leader already exists
       // If so, update directly
+      console.log(prospectiveLeadersRecord)
       prospectiveLeadersRecord = await prospectiveLeadersAirtable.update(
-        prospectiveLeadersRecord.id,
+        prospectiveLeadersRecord[0].id,
         {
-          'Turnover Invite?': true
+          'Turnover Invite?': true,
+          Turnover: ['rec' + req.query.id]
         }
       )
     } else {

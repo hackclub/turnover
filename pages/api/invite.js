@@ -10,11 +10,26 @@ export default async function handler(req, res) {
       return
     }
 
-    const prospectiveLeadersRecord = await prospectiveLeadersAirtable.create({
-      Email: decodeURIComponent(req.query.email),
-      Turnover: ['rec' + req.query.id],
-      'Turnover Invite?': true
+    let prospectiveLeadersRecord = await prospectiveLeadersAirtable.read({
+      filterByFormula: `{Email} = "${req.query.email}"`,
+      maxRecords: 1
     })
+    if (prospectiveLeadersRecord.length) {
+      // Check if prospective leader already exists
+      // If so, update directly
+      prospectiveLeadersRecord = await prospectiveLeadersAirtable.update(
+        prospectiveLeadersRecord.id,
+        {
+          'Turnover Invite?': true
+        }
+      )
+    } else {
+      prospectiveLeadersRecord = await prospectiveLeadersAirtable.create({
+        Email: decodeURIComponent(req.query.email),
+        Turnover: ['rec' + req.query.id],
+        'Turnover Invite?': true
+      })
+    }
     const loginRecord = await loginsAirtable.create({
       'Relevant User': [prospectiveLeadersRecord.id],
       'New Invite': true,

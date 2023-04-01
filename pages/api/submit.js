@@ -42,8 +42,7 @@ export default async function handler(req, res) {
       'Leader Phone': turnoverRecord.fields['Leader Phone'].join(','),
       Applied: turnoverRecord.fields['Turnover Date'],
       'Turnover Database': turnoverRecord.id,
-      Notes: 'Leader applied for turnover',
-      'App ID': turnoverRecord.id
+      Notes: 'Leader applied for turnover'
     })
 
     // Update Clubs Dashboard

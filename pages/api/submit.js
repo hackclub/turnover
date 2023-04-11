@@ -7,6 +7,7 @@ import {
   clubsAirtable
 } from '../../lib/airtable'
 import nookies from 'nookies'
+import { isInvalidBirthdate } from '@/lib/helpers'
 
 export default async function handler(req, res) {
   const cookies = nookies.get({ req })
@@ -15,6 +16,13 @@ export default async function handler(req, res) {
     if (!tokenRecord.fields['Path'][0].includes(req.query.id))
       return res.redirect('/')
     const turnoverRecord = await turnoverAirtable.find('rec' + req.query.id)
+    if (
+      isInvalidBirthdate(
+        turnoverRecord.fields['Leader Birthdays'][1],
+        turnoverRecord.fields['Leader Birthdays'].slice(1)
+      )
+    )
+      throw new Error('Invalid birthdates')
     // Move Application from old to new "president", update manual fields
     const alumni = (
       await prospectiveLeadersAirtable.read({

@@ -19,7 +19,7 @@ import {
   returnLocalizedMessage,
   returnLocalizedQuestionText,
   handleChangeInDate,
-  invalidBirthdate
+  isInvalidBirthdate
 } from '../../../../lib/helpers'
 import TimelineCard from '../../../../components/Timeline'
 import { countryCodeData, flags } from '../../../../lib/countrycodes'
@@ -74,9 +74,9 @@ export default function TurnoverClub({
   const [lastData, setLastData] = useState({})
   const [saved, setSavedState] = useState(true)
   const [disabled, setDisabled] = useState(
-    invalidBirthdate(
+    isInvalidBirthdate(
       leaderRecord.fields['Birthday'],
-      turnoverRecord.fields['Leader Birthdays']
+      turnoverRecord.fields['Leader Birthdays'].slice(1)
     )
   )
 

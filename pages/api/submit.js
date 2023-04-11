@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     if (
       isInvalidBirthdate(
         turnoverRecord.fields['Leader Birthdays'][1],
-        turnoverRecord.fields['Leader Birthdays'].slice(1)
+        turnoverRecord.fields['Leader Birthdays'] || []
       )
     )
       throw new Error('Invalid birthdates')

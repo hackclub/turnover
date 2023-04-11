@@ -76,7 +76,7 @@ export default function TurnoverClub({
   const [disabled, setDisabled] = useState(
     isInvalidBirthdate(
       leaderRecord.fields['Birthday'],
-      turnoverRecord.fields['Leader Birthdays'].slice(1)
+      turnoverRecord.fields['Leader Birthdays'] || []
     )
   )
 
@@ -307,9 +307,7 @@ export default function TurnoverClub({
                                 turnoverRecord.fields['Leaders Emails'].length >
                                 1
                                   ? data['President']
-                                  : applicationsRecord.fields[
-                                      'Leaders Emails'
-                                    ][0]
+                                  : turnoverRecord.fields['Leaders Emails'][0]
                               }`
                               newData[item.key] = e.target.value
                               setData({ ...data, ...newData })

@@ -448,6 +448,13 @@ export async function getServerSideProps({ res, req, params }) {
       const turnoverRecord = await turnoverAirtable.find(
         'rec' + params.turnover
       )
+      if (!turnoverRecord.fields['Submitted'])
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false
+          }
+        }
       const trackerRecord = await trackerAirtable.read({
         filterByFormula: `{Venue} = "${turnoverRecord.fields['School Name']}"`,
         maxRecords: 1

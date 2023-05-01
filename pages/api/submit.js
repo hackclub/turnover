@@ -8,6 +8,7 @@ import {
 } from '../../lib/airtable'
 import nookies from 'nookies'
 import { isInvalidBirthdate } from '@/lib/helpers'
+import dayjs from 'dayjs'
 
 export default async function handler(req, res) {
   const cookies = nookies.get({ req })
@@ -51,7 +52,7 @@ export default async function handler(req, res) {
       Applied: turnoverRecord.fields['Turnover Date'],
       'Turnover Database': turnoverRecord.id,
       Notes: 'Leader applied for turnover',
-      'Date Responded': ''
+      'Date Responded': dayjs(new Date().toString()).format('MM/DD/YYYY')
     })
 
     // Update Clubs Dashboard

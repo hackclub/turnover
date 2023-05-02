@@ -47,7 +47,7 @@ export default async function handler(req, res) {
     !(
       today.getMonth() === 3 &&
       today.getDay() === 1 &&
-      today.getHours() === 12 &&
+      today.getHours() === 0 &&
       today.getMinutes() === 0 &&
       today.getSeconds() === 0
     )

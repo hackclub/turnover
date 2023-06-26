@@ -2,8 +2,14 @@
   "github": {
     "silent": true
   },
-  "crons": [{
-    "path": "/api/cron",
-    "schedule": "0 0 1 4 *"
-  }]
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "0 0 1 4 *"
+    },
+    {
+      "path": "/api/cron",
+      "schedule": "0 0 1 8 *"
+    }
+  ]
 }

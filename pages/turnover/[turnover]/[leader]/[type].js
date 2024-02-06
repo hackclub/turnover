@@ -561,6 +561,7 @@ export async function getServerSideProps({ res, req, params }) {
     turnoverAirtable,
     trackerAirtable
   } = require('../../../../lib/airtable')
+  console.log('hit')
   const cookies = nookies.get({ req })
   if (cookies.authToken && cookies.authType === 'Turnover') {
     try {

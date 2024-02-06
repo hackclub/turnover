@@ -357,7 +357,7 @@ export default function TurnoverReview({
         </Link>
         <Divider sx={{ color: 'slate', my: [3, 4] }} />
         <Link
-          href={`/${params.turnover}/${params.leader}/club`}
+          href={`/turnover/${params.turnover}/${params.leader}/club`}
           style={{ textDecoration: 'none' }}
         >
           <Flex
